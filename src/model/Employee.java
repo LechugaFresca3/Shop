@@ -10,22 +10,19 @@ import main.Logable;
  *
  * @author iancl
  */
-public class Employee extends Person implements Logable{
-    int employeeld;
-    String password;
-    
-    public static final int EMPLOYEE_ID = 123;
-    public static final String PASSWORD = "test";
+public class Employee extends Person implements Logable {
 
+    private int employeeld;
+    private String password;
 
-    
-    public Employee(int employeeld, String password) {
+    private static final int EMPLOYEE_ID = 123;
+    private static final String PASSWORD = "test";
+
+    public Employee(int employeeld, String password, String name) {
+        super(name);
         this.employeeld = employeeld;
         this.password = password;
     }
-
-    
-    
 
     public int getEmployeeld() {
         return employeeld;
@@ -43,13 +40,25 @@ public class Employee extends Person implements Logable{
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     
+    
+    
+    @Override
+    public String toString() {
+        return "Employee{" + "employeeld=" + employeeld + ", password=" + password + '}';
+    }
+
     @Override
     public boolean login(int user, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return user == EMPLOYEE_ID && password.equals(PASSWORD);
     }
-    
-    
-    
+
 }

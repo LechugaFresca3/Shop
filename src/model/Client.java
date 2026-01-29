@@ -4,15 +4,20 @@
  */
 package model;
 
+import main.Payable;
+
 /**
  *
  * @author iancl
  */
-public class Client {
-    int memberld;
-    Amount balance;
+public class Client extends Person implements Payable{
+    private int memberld;
+    private Amount balance;
+    private static final int MEMBER_ID = 456;
+    private static final double BALANCE = 50.00;
 
-    public Client(int memberld, Amount balance) {
+    public Client(int memberld, Amount balance, String name) {
+        super(name);
         this.memberld = memberld;
         this.balance = balance;
     }
@@ -32,6 +37,40 @@ public class Client {
     public void setBalance(Amount balance) {
         this.balance = balance;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Client{" + "memberld=" + memberld + ", balance=" + balance + '}';
+    }
+    
+    @Override
+    public boolean pay(Amount amount) {
+
+        double finalBalance = balance.getValue() - amount.getValue();
+
+        if (finalBalance > 0) {
+
+            balance.setValue(finalBalance);
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+ 
+
     
     
     

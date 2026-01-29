@@ -5,36 +5,36 @@ import model.Product;
 import model.Sale;
 import java.util.Scanner;
 import model.Amount;
+import model.Client;
+import model.Employee;
 
 public class Shop {
-    
+
     private Amount cash = new Amount(100.00);
     private ArrayList<Product> inventory = new ArrayList<>();
     private ArrayList<Sale> sales = new ArrayList<>();
     public static int counterSales = 0;
+    private Employee employee1 = null;
 
     final static double TAX_RATE = 1.04;
 
     public Amount getCash() {
         return cash;
     }
-    
+
     public void setCash(Amount cash) {
         this.cash = cash;
     }
 
     public static void main(String[] args) {
         Shop shop = new Shop();
-        
 
         shop.loadInventory();
-
+        shop.initSession();
         Scanner scanner = new Scanner(System.in);
-        
+
         int opcion = 0;
         boolean exit = false;
-        
-        initSession();
 
         do {
             System.out.println("\n");
@@ -53,7 +53,7 @@ public class Shop {
             System.out.println("10) Salir programa");
             System.out.print("Seleccione una opcion: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -77,7 +77,7 @@ public class Shop {
                     break;
 
                 case 6:
-                    shop.sale();   
+                    shop.sale();
                     break;
 
                 case 7:
@@ -98,19 +98,34 @@ public class Shop {
             }
         } while (!exit);
     }
-    
-    public static void initSession(){
+
+    public void initSession() {
         Scanner sc = new Scanner(System.in);
-        
-        System.out.println("Cual es tu numero de empleado?");
-        int empleadoId = sc.nextInt();
-        // tienes que coger y usar el employeeId de la clase Employee
-        
-        System.out.println("Introduce tu contraseña:");
-        String contraseña = sc.nextLine();
-        // tienes que coger y usar el password de la clase Employee
-        
-        
+        boolean verificar = false;
+
+        while (!verificar) {
+            System.out.println("Cual es tu numero de empleado?");
+            int employeeld = sc.nextInt();
+
+            // tienes que coger y usar el employeeId de la clase Employee
+            System.out.println("Introduce tu contraseña:");
+            String password = sc.next();
+
+            sc.nextLine();
+            // tienes que coger y usar el password de la clase Employee
+
+            Employee employee = new Employee(employeeld, password, "Employee");
+
+            if (employee.login(employeeld, password)) {
+                employee1 = employee;
+                System.out.println("Inicio de sesion correcto");
+                System.out.println("Bienvenido empleado");
+                verificar = true;
+            } else {
+                System.out.println("Usuario o contraseña incorrectos");
+            }
+        }
+
     }
 
     public void loadInventory() {
@@ -184,14 +199,20 @@ public class Shop {
         }
     }
 
-
     public void sale() {
 
         ArrayList<Product> shoppingcart = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Realizar venta, escribir nombre cliente:");
-        String client = sc.nextLine();
+        String clientName = sc.nextLine();
+
+        System.out.println("Escribir ID del cliente:");
+        int memberId = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Escribir saldo del cliente:");
+        double balanceValue = Double.parseDouble(sc.nextLine());
+        Amount balance = new Amount(balanceValue);
 
         double totalAmount = 0.0;
         String name = "";
@@ -200,7 +221,9 @@ public class Shop {
             System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
             name = sc.nextLine();
 
-            if (name.equals("0")) break;
+            if (name.equals("0")) {
+                break;
+            }
 
             Product product = findProduct(name);
 
@@ -226,6 +249,7 @@ public class Shop {
         System.out.println("Venta realizada con éxito, total: " + totalAmount);
 
         // Guardar venta
+        Client client = new Client(memberId, balance, clientName);
         Sale newSale = new Sale(client, shoppingcart, new Amount(totalAmount));
         sales.add(newSale);
         counterSales++;
@@ -267,32 +291,29 @@ public class Shop {
         for (Sale s : sales) {
             total += s.getAmount().getValue();
         }
-        
+
         System.out.println("El importe total de todas las ventas es: " + total + " euros");
     }
-    
+
     public void EliminarP() {
         Scanner sc = new Scanner(System.in);
-        
+
         System.out.println("Cual producto quieres eliminar?");
         String name = sc.nextLine();
         Product p = null;
-        
+
         for (Product product : inventory) {
-            if(product.getName().equals(name)){
+            if (product.getName().equals(name)) {
                 p = product;
                 break;
             }
         }
         if (p != null) {
-        inventory.remove(p);
-        System.out.println("Producto eliminado correctamente.");
+            inventory.remove(p);
+            System.out.println("Producto eliminado correctamente.");
         } else {
-        System.out.println("Producto no encontrado.");
+            System.out.println("Producto no encontrado.");
         }
 
-        
-        
-        
     }
 }
