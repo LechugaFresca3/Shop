@@ -16,10 +16,10 @@ public class Client extends Person implements Payable{
     private static final int MEMBER_ID = 456;
     private static final double BALANCE = 50.00;
 
-    public Client(int memberld, Amount balance, String name) {
+    public Client(String name) {
         super(name);
-        this.memberld = memberld;
-        this.balance = balance;
+        this.memberld = MEMBER_ID;
+        this.balance = new Amount(BALANCE);
     }
 
     public int getMemberld() {
@@ -51,8 +51,8 @@ public class Client extends Person implements Payable{
     public String toString() {
         return "Client{" + "memberld=" + memberld + ", balance=" + balance + '}';
     }
-    
-    @Override
+
+@Override
     public boolean pay(Amount amount) {
 
         double finalBalance = balance.getValue() - amount.getValue();
@@ -68,6 +68,8 @@ public class Client extends Person implements Payable{
             return false;
 
         }
+    
+    
     }
  
 

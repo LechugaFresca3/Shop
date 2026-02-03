@@ -207,13 +207,6 @@ public class Shop {
         System.out.println("Realizar venta, escribir nombre cliente:");
         String clientName = sc.nextLine();
 
-        System.out.println("Escribir ID del cliente:");
-        int memberId = Integer.parseInt(sc.nextLine());
-
-        System.out.println("Escribir saldo del cliente:");
-        double balanceValue = Double.parseDouble(sc.nextLine());
-        Amount balance = new Amount(balanceValue);
-
         double totalAmount = 0.0;
         String name = "";
 
@@ -249,10 +242,20 @@ public class Shop {
         System.out.println("Venta realizada con éxito, total: " + totalAmount);
 
         // Guardar venta
-        Client client = new Client(memberId, balance, clientName);
+        Client client = new Client(clientName);
         Sale newSale = new Sale(client, shoppingcart, new Amount(totalAmount));
         sales.add(newSale);
         counterSales++;
+
+        // Crear objeto de tipo Client
+        boolean succes = client.pay(new Amount(totalAmount));
+        if (succes) {
+            System.out.println(client.getBalance());
+        } else {
+            System.out.println("Debes esta cantidad");
+            System.out.println(client.getBalance());
+        }
+
     }
 
     private void showSales() {

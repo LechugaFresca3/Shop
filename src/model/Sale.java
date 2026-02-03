@@ -3,9 +3,10 @@ package model;
 import java.util.ArrayList;
 
 public class Sale {
-	Client client;
-	ArrayList<Product> products;
-	Amount amount;
+
+    Client client;
+    ArrayList<Product> products;
+    Amount amount;
 
     public Sale(Client client, ArrayList<Product> products, Amount amount) {
         this.client = client;
@@ -36,8 +37,6 @@ public class Sale {
     public void setAmount(Amount amount) {
         this.amount = amount;
     }
-
-
 
     @Override
     public String toString() {
