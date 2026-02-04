@@ -129,10 +129,10 @@ public class Shop {
     }
 
     public void loadInventory() {
-        addProduct(new Product("Manzana", 10.00, true, 10));
-        addProduct(new Product("Pera", 20.00, true, 20));
-        addProduct(new Product("Hamburguesa", 30.00, true, 30));
-        addProduct(new Product("Fresa", 5.00, true, 20));
+        addProduct(new Product("Manzana", new Amount(10.00), true, 10));
+        addProduct(new Product("Pera", new Amount(20.00), true, 20));
+        addProduct(new Product("Hamburguesa", new Amount(30.00), true, 30));
+        addProduct(new Product("Fresa",new Amount(5.00), true, 20));
     }
 
     private void showCash() {
@@ -153,7 +153,7 @@ public class Shop {
             System.out.print("Stock: ");
             int stock = scanner.nextInt();
 
-            addProduct(new Product(name, wholesalerPrice, true, stock));
+            addProduct(new Product(name, new Amount(wholesalerPrice), true, stock));
 
         } else {
             System.out.println("Ya existe el producto");
