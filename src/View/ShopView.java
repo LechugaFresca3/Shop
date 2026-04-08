@@ -135,28 +135,20 @@ public class ShopView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProductAddVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductAddVActionPerformed
-        ProductView dialog = new ProductView(this, rootPaneCheckingEnabled);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+         openProductView(2);
     }//GEN-LAST:event_ProductAddVActionPerformed
 
     private void CashVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashVActionPerformed
-        CashView dialog = new CashView(this, rootPaneCheckingEnabled);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+         openCashView(1);
     }//GEN-LAST:event_CashVActionPerformed
 
     private void StockAddVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockAddVActionPerformed
-        ProductView dialog = new ProductView(this, rootPaneCheckingEnabled);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+         openProductView(3);
 
     }//GEN-LAST:event_StockAddVActionPerformed
 
     private void DeletePVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePVActionPerformed
-        ProductView dialog = new ProductView(this, rootPaneCheckingEnabled);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+         openProductView(9);
     }//GEN-LAST:event_DeletePVActionPerformed
 
     private void CashVKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CashVKeyPressed
@@ -214,7 +206,7 @@ public class ShopView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void openCashView(int par) {
-        CashView dialog = new CashView(this, rootPaneCheckingEnabled);
+        CashView dialog = new CashView(this, rootPaneCheckingEnabled,shop);
         dialog.setLocationRelativeTo(this);
         dialog.setModal(true);
         dialog.setVisible(true);
@@ -222,7 +214,7 @@ public class ShopView extends javax.swing.JFrame {
     }
 
     private void openProductView(int par) {
-        ProductView dialog = new ProductView(this, rootPaneCheckingEnabled);
+        ProductView dialog = new ProductView(this, rootPaneCheckingEnabled, par, shop);
         dialog.setLocationRelativeTo(this);
         dialog.setModal(true);
         dialog.setVisible(true);

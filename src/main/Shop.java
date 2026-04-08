@@ -19,7 +19,7 @@ import model.Employee;
 public class Shop {
 
     private Amount cash = new Amount(100.00);
-    private ArrayList<Product> inventory = new ArrayList<>();
+    public static ArrayList<Product> inventory = new ArrayList<>();
     private ArrayList<Sale> sales = new ArrayList<>();
     public static int counterSales = 0;
     private Employee employee1 = null;
@@ -367,6 +367,7 @@ public class Shop {
             return;
         }
         inventory.add(product);
+        this.showInventory();
     }
 
     public boolean isInventoryFull() {
